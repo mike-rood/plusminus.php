@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Core\Controllers;
+namespace Modules\Auth\Controllers;
 
 /**
  * Description of AuthController

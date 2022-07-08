@@ -5,17 +5,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
  */
 
-namespace Modules\Core\Views\Body;
+namespace Modules\Counter\Models;
 
 /**
- * Description of PageBody
+ * Description of CounterModel
  *
  * @author mihej
  */
-class BodyView {
-    
-    public function getBody() {
-        include 'Header/Auth/authTemplate.php';
-    }
-    
+class CounterModel {
+    //put your code here
 }

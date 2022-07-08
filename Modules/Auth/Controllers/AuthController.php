@@ -33,7 +33,25 @@ class AuthController {
     }
     
     public function signup() {
+        $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
+        if ($requestMethod == 'POST' ) {
+            $this->postSignup();
+        } else {
+            $this->getSignup();
+        }
+    }
+    
+    public function getSignup() {
         include '../Modules/Auth/Views/signupTemplate.php';
+    }
+    
+    public function postSignup() {
+        $userName = strip_tags(trim(INPUT_POST, 'username'));
+        $userPass = strip_tags(trim(INPUT_POST, 'userpass'));
+        $userBirthday = filter_input(INPUT_POST, 'userbirthday');
+        $userEmail = filter_input(INPUT_POST, 'useremail', FILTER_VALIDATE_EMAIL);
+        
+        echo $userBirthday;
     }
     
 }

@@ -15,6 +15,7 @@ class Settings {
         $this->dsn = 'mysql:host=localhost;port=3306;dbname=plusminus';
         $this->dbuser = 'root';
         $this->dbpass = '';
+        $this->title = 'Плюс минус';
     }
     
     public function getSetting(string $setting){

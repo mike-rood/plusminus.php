@@ -2,6 +2,10 @@
 
 namespace Modules\Auth\Controllers;
 
+use Modules\Counter\Controllers\CounterController;
+
+use Library\Singleton;
+
 /**
  * Description of AuthController
  *
@@ -9,14 +13,27 @@ namespace Modules\Auth\Controllers;
  */
 class AuthController {
     
-    use \Library\Singleton;
+    use Singleton;
     
-    public function loginAction() {
-        include '../Modules/Core/Views/components/login.php';
+    public function auth() {
+        if (isset($_SESSION['user'])) { 
+            $counter = CounterController::getInstance();
+            $counter->index();
+        } else { 
+            $this->index();
+        } 
     }
     
-    public function signupAction() {
-        include '../Modules/Core/Views/components/signup.php';
+    public function index() {
+        include '../Modules/Auth/Views/authTemplate.php';
+    }
+        
+    public function login() {
+        include '../Modules/Auth/Views/loginTemplate.php';
+    }
+    
+    public function signup() {
+        include '../Modules/Auth/Views/signupTemplate.php';
     }
     
 }

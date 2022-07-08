@@ -1,3 +1,5 @@
+<?php ?>
+
 <div>
     <form action="index.php">
         <p><input type="text"></p>

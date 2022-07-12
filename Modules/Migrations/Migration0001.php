@@ -18,12 +18,16 @@ class Migration0001 {
         $query = "CREATE TABLE IF NOT EXISTS `plusminus`.`users` "
                 . "( `id` INT(5) NOT NULL AUTO_INCREMENT , "
                 . "`name` VARCHAR(30) NOT NULL , "
-                . "`password` VARCHAR(20) NOT NULL , "
+                . "`password` VARCHAR(255) NOT NULL , "
                 . "`email` VARCHAR(40) NOT NULL , "
                 . "PRIMARY KEY (`id`), UNIQUE (`email`)) "
                 . "ENGINE = MyISAM; ";
         return $query;
     }
     
+    static public function down() {
+        $query = "DROP TABLE `plusminus`";
+        return $query;
+    }
     
 }

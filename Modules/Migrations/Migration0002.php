@@ -15,8 +15,16 @@ namespace Modules\Migrations;
 class Migration0002 {
     public static function up(){
         $query = "ALTER TABLE `users` "
-                . "ADD `age` INT(3) NOT NULL AFTER `email`, "
-                . "ADD `clicks` INT(5) NOT NULL DEFAULT '0' AFTER `age`; ";
+                . "ADD `birthday` DATE NOT NULL AFTER `email`, "
+                . "ADD `clicks` INT(5) NOT NULL DEFAULT '0' AFTER `birthday`; ";
         return $query;
     }
+    
+    public static function down() {
+        $query = "ALTER TABLE `users` "
+                . "DROP `birthday`, "
+                . "DROP `clicks`";
+        return $query;
+    }
+    
 }

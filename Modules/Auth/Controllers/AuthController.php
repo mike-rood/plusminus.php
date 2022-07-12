@@ -2,7 +2,9 @@
 
 namespace Modules\Auth\Controllers;
 
+use Modules\Auth\Controllers\ValidationController;
 use Modules\Counter\Controllers\CounterController;
+use Modules\Auth\Models\AuthModel;
 
 use Library\Singleton;
 
@@ -41,17 +43,26 @@ class AuthController {
         }
     }
     
-    public function getSignup() {
+    public function getSignup($messages = []) {
         include '../Modules/Auth/Views/signupTemplate.php';
     }
     
     public function postSignup() {
-        $userName = strip_tags(trim(INPUT_POST, 'username'));
-        $userPass = strip_tags(trim(INPUT_POST, 'userpass'));
-        $userBirthday = filter_input(INPUT_POST, 'userbirthday');
-        $userEmail = filter_input(INPUT_POST, 'useremail', FILTER_VALIDATE_EMAIL);
+        $signupData['userName'] = strip_tags(trim(filter_input(INPUT_POST, 'username')));
+        $signupData['userPass'] = strip_tags(trim(filter_input(INPUT_POST, 'userpass')));
+        $signupData['userEmail'] = filter_input(INPUT_POST, 'useremail', FILTER_VALIDATE_EMAIL);
+        $signupData['userBirthday'] = filter_input(INPUT_POST, 'userbirthday');
         
-        echo $userBirthday;
+        $validator = ValidationController::getInstance();
+        
+        $errors = $validator->validateSignup($signupData);
+        
+        if ($errors) {
+            $this->getSignup($errors);
+        } else {
+            $result[] = AuthModel::signup($signupData);
+            $this->getSignup($result);
+        }
     }
     
 }

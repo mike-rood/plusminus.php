@@ -13,11 +13,11 @@ class ValidationController {
     
     use Singleton;
     
-    public function validateSignup($signupData = []) {
+    public function isEmpty($userData = []) {
         $errors = [];
-        foreach ($signupData as $key => $value) {            
+        foreach ($userData as $key => $value) {            
             if ($value == '') {
-                $errors[] = "Введено некорректное значение {$key}";
+                $errors[] = "Введено пустое значение {$key}";
             }
         }
         return $errors;

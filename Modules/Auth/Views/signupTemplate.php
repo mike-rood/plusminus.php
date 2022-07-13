@@ -10,7 +10,7 @@
     
     if ($messages) {
         foreach ($messages as $message) {
-            echo $message . "<br>";
+            echo "<p>{$message}</p>";
         }
     }   
     

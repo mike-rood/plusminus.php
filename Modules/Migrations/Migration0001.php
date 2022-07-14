@@ -26,7 +26,7 @@ class Migration0001 {
     }
     
     static public function down() {
-        $query = "DROP TABLE `plusminus`";
+        $query = "DROP TABLE `users`";
         return $query;
     }
     

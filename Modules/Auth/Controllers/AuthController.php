@@ -18,7 +18,7 @@ class AuthController {
     use Singleton;
     
     public function auth() {
-        if (isset($_SESSION['user'])) { 
+        if (isset($_SESSION['userName'])) { 
             $counter = CounterController::getInstance();
             $counter->index();
         } else { 

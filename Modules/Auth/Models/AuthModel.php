@@ -21,7 +21,6 @@ class AuthModel {
         $userEmail = $signupData['userEmail'];
         $userBirhday = $signupData['userBirthday'];        
         $sql = "INSERT INTO `users`(`name`, `password`, `email`, `birthday`) VALUES ('{$userName}', '{$userHashedPass}', '{$userEmail}', '{$userBirhday}')";
-        echo $sql;
         $stmt = $pdo->prepare($sql);
         $result = $stmt->execute();
         if ($result) {
@@ -40,8 +39,9 @@ class AuthModel {
             return "No user";
         }
         if ($isCorrectPass) {
-            $_SESSION['user'] = self::getName($typedEmail);
-            return "Welcome, {$_SESSION['user']}!";
+            $_SESSION['userName'] = self::getName($typedEmail);
+            $_SESSION['userEmail'] = $typedEmail;
+            return "Welcome, {$_SESSION['userName']}!";
         } else {
             return "IncorrectPass";
         }

@@ -12,6 +12,26 @@ namespace Modules\Counter\Models;
  *
  * @author mihej
  */
+
+use Library\Connection;
+
 class CounterModel {
-    //put your code here
+    
+    use Connection;
+    
+    public static function getCounterValue($userEmail) {
+        $pdo = self::setConnection('dsn');
+        $sql = "SELECT `clicks` FROM `users` WHERE `email` LIKE '{$userEmail}' LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_OBJ);
+        return $result->clicks;
+    }
+    
+    public static function setCounterValue(int $value, $userEmail) {
+        $pdo = self::setConnection('dsn');
+        $sql = "UPDATE `users` SET `clicks` = clicks + {$value} WHERE `email` = '{$userEmail}'";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    }    
 }

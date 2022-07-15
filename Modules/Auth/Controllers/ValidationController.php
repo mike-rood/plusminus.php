@@ -23,4 +23,17 @@ class ValidationController {
         return $errors;
     }
     
+    public function checkBirthday($dateToCheck) {
+        $today = new \DateTime(date('Y-m-d'));
+        $birthday = new \DateTime($dateToCheck);
+        $difference = $today->diff($birthday);
+        $difFormatted = $difference->format('%y');
+        if ($difFormatted < 5) {
+            return "Слишком молоды";
+        }
+        if ($difFormatted > 150) {
+            return "Слишком стары";        
+        }
+    }
+    
 }

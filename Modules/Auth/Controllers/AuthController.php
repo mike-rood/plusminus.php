@@ -33,17 +33,23 @@ class AuthController {
     public function login() {
         $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
         if ($requestMethod == 'POST' ) {
-            $this->postLogin();
+            $this->postLoginQuery();
         } else {
-            $this->getLogin();
+            $this->getLoginPage();
         }
     }
     
-    public function getLogin($messages = []){
+    public function logout() {
+        unset($_SESSION['userName']);
+        unset($_SESSION['userEmail']);
+        $this->auth();
+    }
+    
+    public function getLoginPage($messages = []){
         include '../Modules/Auth/Views/loginTemplate.php';
     }
     
-    public function postLogin(){
+    public function postLoginQuery(){
         $loginData['loginEmail'] = filter_input(INPUT_POST, 'loginemail', FILTER_VALIDATE_EMAIL);
         $loginData['loginPass'] = filter_input(INPUT_POST, 'loginpass');
         $validator = ValidationController::getInstance();
@@ -51,42 +57,10 @@ class AuthController {
         $errors = $validator->isEmpty($loginData);
         
         if ($errors) {
-            $this->getLogin($errors);
+            $this->getLoginPage($errors);
         } else {
             $result[] = AuthModel::login($loginData);
-            $this->getLogin($result);
+            $this->getLoginPage($result);
         }
     }
-    
-    public function signup() {
-        $requestMethod = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
-        if ($requestMethod == 'POST' ) {
-            $this->postSignup();
-        } else {
-            $this->getSignup();
-        }
-    }
-    
-    public function getSignup($messages = []) {
-        include '../Modules/Auth/Views/signupTemplate.php';
-    }
-    
-    public function postSignup() {
-        $signupData['userName'] = filter_input(INPUT_POST, 'username');
-        $signupData['userPass'] = filter_input(INPUT_POST, 'userpass');
-        $signupData['userEmail'] = filter_input(INPUT_POST, 'useremail', FILTER_VALIDATE_EMAIL);
-        $signupData['userBirthday'] = filter_input(INPUT_POST, 'userbirthday');
-        
-        $validator = ValidationController::getInstance();
-        
-        $errors = $validator->isEmpty($signupData);
-        
-        if ($errors) {
-            $this->getSignup($errors);
-        } else {
-            $result[] = AuthModel::signup($signupData);
-            $this->getSignup($result);
-        }
-    }
-    
 }

@@ -24,6 +24,8 @@ class AuthModel {
         $stmt = $pdo->prepare($sql);
         $result = $stmt->execute();
         if ($result) {
+            $_SESSION['userName'] = $userName;
+            $_SESSION['userEmail'] = $userEmail;
             return "Регистрация выполнена успешно";
         } else {
             return "Что-то пошло не так...";

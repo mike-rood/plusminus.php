@@ -49,7 +49,6 @@ class SignupController {
         if ($errors) {
             $this->getSignupPage($errors);
         } else {
-            die();
             $result[] = AuthModel::signup($signupData);
             $this->getSignupPage($result);
         }
